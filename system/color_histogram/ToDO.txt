@@ -1,0 +1,5 @@
+1-Try technique with tutorials 
+2- Isolate code functionalities (preprocessing, etc..)
+3- Try with our collection 
+4 - Document 
+5 - Unit tests

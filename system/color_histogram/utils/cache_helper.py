@@ -1,0 +1,1 @@
+# We are gonna cache the images vectors and similarity score so it is easier to do the search
