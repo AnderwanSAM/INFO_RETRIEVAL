@@ -1,0 +1,28 @@
+body {
+    background-image: url("/static/bg-masthead.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Optional: Fixed background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure full viewport height */
+    text-align: center; /* Center-align text */
+    color: #fff; /* Set text color to white */
+}
+
+/* Additional styling for the content */
+.search-form-container {
+    margin-top: 50px; /* Adjust as needed */
+}
+
+/* Style for the buttons */
+.form-subscribe {
+    display: inline-block; /* Display forms in a line */
+}
+
+.btn {
+    margin-right: 200px; /* Adjust the spacing between buttons */
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Image and text information retrieval</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1 class="mb-5">Text and Image Information Retrieval System</h1>
+    <div class="search-form-container">
+        <form class="form-subscribe" id="searchForm" action="/text" method="GET">
+            <div class="row">
+                <div class="col-auto"><button class="btn btn-primary btn-lg" id="searchButton"
+                        type="submit">Text</button></div>
+            </div>
+        </form>
+        <form class="form-subscribe" id="searchForm" action="/image" method="GET">
+            <div class="row">
+                <div class="col-auto"><button class="btn btn-primary btn-lg" id="searchButton"
+                        type="submit">Image</button></div>
+            </div>
+        </form>
+</body>
+
+</html>
