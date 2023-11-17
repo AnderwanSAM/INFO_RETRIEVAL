@@ -1,3 +1,7 @@
-Pillow
 Flask
+numpy
+pandas
+Pillow
 tensorflow>=2.0.0
+opencv-python
+scikit-learn

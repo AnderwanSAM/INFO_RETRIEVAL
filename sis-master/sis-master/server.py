@@ -1,3 +1,6 @@
+import cv2
+import os
+import pandas as pd
 import numpy as np
 from PIL import Image
 from feature_extractor import FeatureExtractor
@@ -5,6 +8,7 @@ from datetime import datetime
 from flask import Flask, render_template, request
 from pathlib import Path
 from main import get_top_matches, extract_captions, process_caption, create_tfidf_vectors
+from colorhistogram_vectorize import read_vectors_computation, get_vector, cosine
 
 app = Flask(__name__)
 
@@ -31,23 +35,46 @@ def index():
         query_img = request.files['query_img']
         img = Image.open(query_img.stream)
         
+        # get the selected system 
+        selected_system = request.form.get('search_system')
+
         # Save the query image
         uploaded_img_path = f"static/uploaded/{datetime.now().isoformat().replace(':', '_')}_{query_img.filename}"
         img.save(uploaded_img_path)
 
         # Run the image search
-        query_features = fe.extract(img)
-        dists = np.linalg.norm(features - query_features, axis=1)  
-        ids = np.argsort(dists)[:30]  
-        scores = [(dists[id], img_paths[id]) for id in ids]
 
-        return render_template('index.html', query_path=uploaded_img_path, scores=scores)
+        if selected_system == "colorH":
+            # Process image using the colorH system
+            image = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+            query_vector = get_vector(image)
+            computed_vectors = read_vectors_computation('colorhistogram_vectors.csv')
+            # Compute similarities
+            scores = []
+            for image_id, vectors in computed_vectors.items():
+                vector = np.array([vectors[f'vec_{i}'] for i in range(len(query_vector))])
+                similarity = cosine(query_vector, vector)
+                scores.append((similarity, image_id))
+            scores.sort(key=lambda x: x[0], reverse=True)  # Sort by similarity, highest first
+            scores = scores[:30]  # Get top 30 matches
+        elif selected_system == "features":
+            # Process image using the features system
+            query_features = fe.extract(img)
+            dists = np.linalg.norm(features - query_features, axis=1)
+            ids = np.argsort(dists)[:30]
+            scores = [(dists[id], img_paths[id]) for id in ids]
+        else : 
+            # nothing ? Well, There is another model coming 
+            s = True 
+
+        return render_template('index.html', query_path=uploaded_img_path, scores=scores,selected_system=selected_system)
     else:
         return render_template('index.html')
 
 @app.route('/')
 def home():
     return render_template('home.html')
+
 
 @app.route('/text', methods=['GET', 'POST'])
 def text_search():

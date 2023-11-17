@@ -25,6 +25,10 @@
                         <div class="search-form-container">
                             <form method="POST" enctype="multipart/form-data">
                                 <center><input type="file" name="query_img"><br></center>
+                                <select name="search_system">
+                                    <option value="colorH">ColorH</option>
+                                    <option value="features">Features</option>
+                                </select>
                                 <input type="submit">
                             </form>
                         </div>
@@ -36,6 +40,11 @@
 
     <!-- Query and Results Section -->
     <center>
+        {% if selected_system %}
+            <div class="selected-system-info">
+                <h3>Search performed using: {{ selected_system }}</h3>
+            </div>
+            {% endif %}
         <div class="query-results-container">
             <h2 class="mb-5">Query:</h2>
             {% if query_path %}

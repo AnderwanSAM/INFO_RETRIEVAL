@@ -53,8 +53,8 @@
                         <!-- Update the src attribute to point directly to static/img -->
                         <img src="/static/img/{{ match[0] }}" height="200px" alt="Image">
                         <div class="card-body">
-                            <p class="card-text">{{ match['1'] }}</p>
-                            <p class="card-text">Similarity Score: {{ match['2'] }}</p>
+                            <p class="card-text">Caption: {{match[1]}}</p>
+                            <p class="card-text">Similarity Score: {{ match[2] }}</p>
                         </div>
                     </div>
                 </div>
