@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Image and text information retrieval</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                        <h1 class="mb-5">Image-Based Information Retrieval System</h1>
+                        <div class="search-form-container">
+                            <form method="POST" enctype="multipart/form-data">
+                                <center><input type="file" name="query_img">
+                                <br></center>
+                                <select name="search_system" class="choice-system">
+                                    <option class = "choice" value="Color Histogram">Color Histogram</option>
+                                    <option class = "choice" value="VGG-16">VGG-16</option>
+                                    <option class = "choice" value="Deep Image Search">Deep Image Search</option>
+                                </select>
+                                <input type="submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container mt-5">
+    <center>
+        {% if selected_system %}
+            <div class="selected-system-info">
+                <h3>Search performed using: {{ selected_system }}</h3>
+            </div>
+            {% endif %}
+        <div class="query-results-container">
+            <h2 class="mb-5">Query:</h2>
+            {% if query_path %}
+            <img src="{{ query_path }}" width="300px">
+            {% endif %}
+            <h2 class="mb-5">Results:</h2>
+            {% for score in scores %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ score[1] }}" height="200px" alt="Image">
+                    <div class="card-body">
+                        <p class="card-text">Similarity Score: {{ score[0] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </center>
+    </section>
+</body>
+
+</html>
