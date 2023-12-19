@@ -1,0 +1,2 @@
+This website contains all the systems developed by this project.
+Navigate to the sis-master repository and follow the instructions to run the website. 
